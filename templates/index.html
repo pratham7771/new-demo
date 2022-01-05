@@ -1,0 +1,248 @@
+{% load static %}
+{% load socialaccount %}
+{% providers_media_js %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <title>index</title>
+</head>
+
+<body>
+    <!--Start navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'logo/logo.png'%}" alt="" width="30" height="24">
+            </a>
+            <a class="navbar-brand" href="#">Myapp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-outline-primary mx-2" type="button" data-bs-toggle="modal"
+                        data-bs-target="#signupModal">Signup</button>
+                    <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal"
+                        data-bs-target="#loginModal">login</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!--End navbar-->
+
+    <!--Start slide-->
+    <div class="container my-2">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+                    aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"
+                    aria-label="Slide 5"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'images/download.jpg'%}" class="d-block w-100" alt="..." style="height: 500px;">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'images/download2.jpg'%}" class="d-block w-100" alt="..."
+                        style="height: 500px;">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'images/download3.jpg'%}" class="d-block w-100" alt="..."
+                        style="height: 500px;">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'images/download4.jpg'%}" class="d-block w-100" alt="..."
+                        style="height: 500px;">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'images/download5.jpg'%}" class="d-block w-100" alt="..."
+                        style="height: 500px;">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <!--End slide-->
+
+    <!-- login start -->
+    <!-- Modal -->
+    <form method="POST">
+        {% csrf_token %}
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">username</label>
+                                <input type="email" name="username" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" required>
+                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" name="password" class="form-control" id="exampleInputPassword1"
+                                    required>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary" name="login" value="login">Login</button>
+                                <a class="btn btn-primary"
+                                    href="{% provider_login_url 'facebook' method='oauth2' %}">Login
+                                    with Facebook</a>
+                                <a class="btn btn-danger" href="{% provider_login_url 'google' %}">Login with Gmail</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- login end -->
+
+    <!-- Signup start -->
+    <!-- Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">signup</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3" method="POST">
+                        {% csrf_token %}
+                        <div class="col-md-6">
+                            <label for="validationDefault01" class="form-label">First name</label>
+                            <input type="text" class="form-control" id="validationDefault01" name="firstname" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="validationDefault02" class="form-label">Last name</label>
+                            <input type="text" class="form-control" id="validationDefault02" name="lastname" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="validationDefaultUsername" class="form-label">Username</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                                <input type="text" class="form-control" id="validationDefaultUsername"
+                                    aria-describedby="inputGroupPrepend2" name="username" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="validationDefault02" class="form-label">password</label>
+                            <input type="password" class="form-control" id="validationDefault02" name="password"
+                                required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="validationDefault03" class="form-label">City</label>
+                            <input type="text" class="form-control" id="validationDefault03" name="city" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="validationDefault04" class="form-label">State</label>
+                            <select class="form-select" id="validationDefault04" name="state" required>
+                                <option selected disabled value="">Choose...</option>
+                                <option>gujrat</option>
+                                <option>Andhra Pradesh</option>
+                                <option>Uttar Pradesh</option>
+                                <option>Karnataka</option>
+                                <option>Kerala</option>
+                                <option>Punjab</option>
+                                <option>Rajasthan</option>
+                                <option>Haryana</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="validationDefault05" class="form-label">Zip</label>
+                            <input type="text" class="form-control" id="validationDefault05" name="zipcode" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="validationDefault05" class="form-label">Mobileno</label>
+                            <input type="text" class="form-control" id="validationDefault05" name="num" required>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                                <label class="form-check-label" for="invalidCheck2">
+                                    Agree to terms and conditions
+                                </label>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" type="submit" name="signup" value="signup">Signup</button>
+                            <a class="btn btn-primary" href="{% provider_login_url 'facebook' method='oauth2' %}">Login
+                                with Facebook</a>
+                            <a class="btn btn-danger" href="">Login with Gmail</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Signup end -->
+
+    <!-- src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26432.42324808999!2d-118.34398767954286!3d34.09378509738966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2bf07045279bf%3A0xf67a9a6797bdfae4!2sHollywood%2C%20Los%20Angeles%2C%20CA%2C%20USA!5e0!3m2!1sen!2sbd!4v1576846473265!5m2!1sen!2sbd" -->
+    <!-- src="https://www.google.com/maps/place/Rajkot+Station/@22.3139033,70.8015721,17z/data=!4m5!3m4!1s0x3959c9ca183a06bf:0xff0b15f175322d3b!8m2!3d22.3147695!4d70.8022415" -->
+
+</body>
+
+</html>
